@@ -1,3 +1,7 @@
+#Benjamin Pusch
+#email: bhx5gh@virginia.edu
+
+
 from z3 import Bool, And, Or, Not, Solver
 from itertools import combinations
 
