@@ -52,6 +52,11 @@ See how the English presents the "story" of the formal proof in more
 natural, human, terms.
 
 ANSWER HERE:
+Assume that for all objects of type Human, isMortal X, where X is an arbitrary object of type human,
+evaluates to true. Further, assume that Socrates is an object of type Human. Since we have a proof that
+any human is mortal, we can apply for all elimination to deduce that Socrates, an object of type Human,
+must also be mortal as isMortal Socrates evaluates to true.
+
 -/
 
 
@@ -71,22 +76,22 @@ To do so, uncomment the following block of expressions then fill
 in blanks to complete this task.
 -/
 
-/- Uncomment this block to answer the question
+
 variable Person : Type
-variable Likes : _        -- a predicate with two Person arguments
-variable Jealous : _      -- same thing here  
+variable Likes : Person → Person → Prop        -- a predicate with two Person arguments
+variable Jealous : Person → Person → Prop      -- same thing here  
 variable Triangle :       -- note definition extends to next line
-  ∀ (p1 p2 p3 : Person), _  
-variables ed hannah mel : _
-variable likes_ed_hannah : _
-variable likes_hannah_mel : _
+  ∀ (p1 p2 p3 : Person), Likes p1 p2 → Likes p2 p3 →  Jealous p1 p3  
+variables ed hannah mel : Person
+variable likes_ed_hannah : Likes ed hannah
+variable likes_hannah_mel : Likes hannah mel
 -- Finally write and use #check to check an expression that proves that ed is 
 -- jealous of mel.
 -- To ANSWER, fill in the _ with your expression. 
 -- HINT "Apply" what you know.
--/
 
-#check _
+
+#check Triangle ed hannah mel  likes_ed_hannah likes_hannah_mel
 
 
 /- #3: Proofing a propositions involving ∀ and ∨
@@ -96,6 +101,11 @@ the methods of inference we've covered: ∀ (P Q : Prop), P ∧ Q → Q ∨ P.
 
 Do read that proposition carefully, please. You don't need to write a
 long proof. Keep it concise. Identiy the inference rules you use.
+
+Assume that P and Q are arbitrary but specific propositions, an that we have a proof of P ∧ Q.
+Using and-elimination (left and right) we can derive proofs of P and Q. Then we can use or-introduction
+(right or left) to construct a proof of Q ∨ P, showing that for any propositions P and Q, if we have 
+a proof of P ∧ Q, we can construct a proof of Q ∨ P.
 
 -/
 
@@ -112,7 +122,9 @@ You may (and probably should) break up your expression over several
 lines, using line breaks and indentation to make the answer readable.
 -/
 
-variable Person : Type
+--variable Person : Type (already declared above)
 variable Knows : Person → Person → Prop
 def answer : Prop := 
-    _
+  ∀ (P1 P2: Person), 
+  ∃ (Q1 Q2: Person),
+  Knows P1 Q1 → Knows Q1 Q2 → Knows Q2 P2
