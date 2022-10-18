@@ -14,7 +14,7 @@ def neg_sqrt(n) :
     s = Solver()
     s.add(And(sqrtn*sqrtn == n,sqrtn<0)) # replace True with required declarative spec
     isSat = s.check()
-    if (isSat) :
+    if (isSat == sat) :
         return s.model()
     return -1
 
